@@ -18,8 +18,8 @@ object AxonPixelPrediction {
       .setMaster("local")
     //initialise the Spark context
     val sc = new SparkContext(conf)
-    val jobStartTime = System.currentTimeMillis()
-    println("Job started at" + jobStartTime)
+//    val jobStartTime = System.currentTimeMillis()
+//    println("Job started at" + jobStartTime)
     //parsing the input file and converting to labelled point where
     //label is the flag and vector is the neighborhood
    
@@ -42,7 +42,7 @@ object AxonPixelPrediction {
     val trainedModel =RandomForest.trainClassifier(trainingData, numClasses, categoricalFeaturesInfo,
       numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)
     
-    // traing is done
+    // training is done
      
       
      //validation 
