@@ -82,4 +82,27 @@ local.properties
 input/
 *output*
 *out
+
+/.settings/
+.project
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# JDT-specific (Eclipse Java Development Tools)
+*.classpath
+*.project
+bin/
+*.csv
+*.cache-main
 /target/
