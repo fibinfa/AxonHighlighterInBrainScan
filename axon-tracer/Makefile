@@ -7,21 +7,19 @@ app.name=Brain Axon Image Tracing
 jar.name=axon-tracer-1.0.jar
 maven.jar.name=axon-tracer-1.0.jar
 jar.path=target/${maven.jar.name}
-job.name=edu.neu.cs6240.axontracer.AxonPixelPrediction
+job.name=edu.neu.cs6240.axontracer.ModelTraining
 local.master=local[4]
 local.input=input
 local.output=output
-num.iter=10
-k=100
 # AWS EMR Execution
 aws.release.label=emr-5.11.1
-aws.bucket.name=mapr-asim-hw4
+aws.bucket.name=axontracer
 aws.input=input
 aws.output=output
 aws.log.dir=log
 aws.num.nodes=10
 aws.instance.type=m4.large
-aws.subnet.id=subnet-e126d8ee
+aws.subnet.id=subnet-7a20c41e
 aws.region=us-east-1
 # -----------------------------------------------------------
 
@@ -61,7 +59,7 @@ cloud:jar upload-app-aws delete-output-aws
 		--release-label ${aws.release.label} \
 		--instance-groups '[{"InstanceCount":${aws.num.nodes},"InstanceGroupType":"CORE","InstanceType":"${aws.instance.type}"},{"InstanceCount":1,"InstanceGroupType":"MASTER","InstanceType":"${aws.instance.type}"}]' \
 	    --applications Name=Hadoop Name=Spark \
-		--steps Type=CUSTOM_JAR,Name="${app.name}",Jar="command-runner.jar",ActionOnFailure=TERMINATE_CLUSTER,Args=["spark-submit","--deploy-mode","cluster","--class","${job.name}","s3://${aws.bucket.name}/${jar.name}","s3://${aws.bucket.name}/${aws.input}","s3://${aws.bucket.name}/${aws.output}","${num.iter}","${k}"] \
+		--steps Type=CUSTOM_JAR,Name="${app.name}",Jar="command-runner.jar",ActionOnFailure=TERMINATE_CLUSTER,Args=["spark-submit","--deploy-mode","cluster","--class","${job.name}","s3://${aws.bucket.name}/${jar.name}","s3://${aws.bucket.name}/${aws.input}","s3://${aws.bucket.name}/${aws.output}"] \
 		--log-uri s3://${aws.bucket.name}/${aws.log.dir} \
 		--service-role EMR_DefaultRole \
 		--ec2-attributes InstanceProfile=EMR_EC2_DefaultRole,SubnetId=${aws.subnet.id} \
