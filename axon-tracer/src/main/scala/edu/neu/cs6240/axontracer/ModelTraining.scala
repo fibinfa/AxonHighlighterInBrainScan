@@ -34,10 +34,10 @@ object ModelTraining {
 
     val numClasses = 2
     val categoricalFeaturesInfo = Map[Int, Int]()
-    val numTrees = 30
+    val numTrees = 20
     val featureSubsetStrategy = "auto" // Let the algorithm choose.
     val impurity = "gini" // for classification
-    val maxDepth = 20
+    val maxDepth = 5
     val maxBins = 100
 
     //model is created and stored as an rdd
