@@ -11,6 +11,14 @@ import org.apache.spark.rdd.RDD
 //args
 //0 - input folder -> Training & validation
 
+/**
+ * @author fibinfrancis
+ * 
+ * Scala object which takes CSV files as input which have brain scanning data.
+ * Then it trains a Random Forest on these input files.
+ * Does validation on one of the inputs and generates the accuracy
+ *
+ */
 object ModelTraining {
 
   def main(args: Array[String]) = {
