@@ -9,21 +9,29 @@ public class TransformMatrix {
 	private static int N = 21;
 
 	// partitioning the array on basis of Z axis size
-	private static int K = 7; 
+//	private static int K = 7; 
 	
 	public static List<String[]> transform(String ar[]) {
-		
+			
 				String[][] mat = new String[21][21];
-
+				String lastElement = ar[ar.length-1];
 				// feeding the array into the new matrix which will then e rotated
 				for (int i = 0; i < ar.length; i++) {
-					mat[i/K][i%K] = ar[i];
+					mat[i/N][i%N] = ar[i];
 				}
 				List<String[]> list = new ArrayList<>();
+				String[] r90 = rotateMatrixLeft(mat);
+				r90[r90.length-1] =lastElement;
 				
-				list.add(rotateMatrixLeft(mat)); // 90
-				list.add(rotateMatrixLeft(mat)); // 180
-				list.add(rotateMatrixLeft(mat)); // 270
+				
+				
+				String[] r180 = rotateMatrixLeft(mat);
+				r180[r180.length-1] =lastElement;
+				String[] r270 = rotateMatrixLeft(mat);
+				r270[r270.length-1] =lastElement;
+				list.add(r90); // 90
+				list.add(r180); // 180
+				list.add(r270); // 270
 				
 				
 				return list;
@@ -69,7 +77,6 @@ public class TransformMatrix {
 				result[c++] = mat[i][j];
 			}
 		}
-
 		return result;
 	}
 

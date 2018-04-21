@@ -7,6 +7,7 @@ import org.apache.spark.mllib.tree.RandomForest
 import org.apache.spark.mllib.tree.model.RandomForestModel
 import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.rdd.RDD
+import scala.collection.mutable.ListBuffer
 
 //args
 //0 - input folder -> Training & validation
@@ -23,18 +24,42 @@ object ModelTraining {
     //parsing the input file and converting to labelled point where
     //label is the flag and vector is the neighborhood
 
-    val trainingStartTime = System.currentTimeMillis()
-
+    val trainingStartTime = System.currentTimeMillis()     
+          
     val trainingData = sc.textFile(args(0) + "/Training/*.csv")
-      .map(row => row.split(","))
-      .map(arr => new LabeledPoint(
+    .map(row => row.split(","))
+    .flatMap(arr => {
+      var listBuffer = new ListBuffer[LabeledPoint]
+      //original
+      listBuffer+= new LabeledPoint(
         arr.last.toDouble,
         Vectors.dense(arr.take(arr.length - 1).
-          map(str => str.toDouble))))
+          map(str => str.toDouble)))
+      //90 rotated
+      listBuffer += new LabeledPoint(
+        arr.last.toDouble,
+        Vectors.dense(rotate90(arr).
+          map(str => str.toDouble)))
+      
+      //180 rotated
+      listBuffer += new LabeledPoint(
+        arr.last.toDouble,
+        Vectors.dense(rotate180(arr).
+          map(str => str.toDouble)))
+      
+      //270 rotated
+      listBuffer += new LabeledPoint(
+        arr.last.toDouble,
+        Vectors.dense(rotate270(arr).
+          map(str => str.toDouble)))
+      
+      listBuffer.map(x => x)
+      
+    })
 
     val numClasses = 2
     val categoricalFeaturesInfo = Map[Int, Int]()
-    val numTrees = 20
+    val numTrees = 100
     val featureSubsetStrategy = "auto" // Let the algorithm choose.
     val impurity = "gini" // for classification
     val maxDepth = 5
@@ -79,6 +104,32 @@ object ModelTraining {
     println("Accuracy = " + correct / count)
     println("Training took " + (trainingEndTime - trainingStartTime))
     println("Validation took " + (predictEndTime - predictStartTime))
+
+  }
+  
+   def rotate90(arr: Array[String]): Array[String] = {
+    return arr.take(arr.length - 1)
+      .toList.grouped(441).toList
+      .transpose
+      .map(arr => arr.reverse).flatten.toArray
+
+  }
+
+//  def rotate180(arr: Array[String]): Array[String] = {
+//    return arr.take(arr.length - 1).toList.reverse.toArray
+//
+//  }
+   
+   def rotate180(arr: Array[String]): Array[String] = {
+     return arr.take(arr.length - 1).toList
+     .grouped(441).toList.toArray
+     .map(arr => arr.reverse).flatten
+   }
+  
+  def rotate270(arr: Array[String]): Array[String] = {
+    return rotate90(arr).toList
+    .grouped(441).toList.toArray
+     .map(arr => arr.reverse).flatten
 
   }
 

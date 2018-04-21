@@ -12,7 +12,7 @@ local.master=local[4]
 local.input=input
 local.output=output
 # AWS EMR Execution
-aws.release.label=emr-5.11.1
+aws.release.label=emr-5.9.0
 aws.bucket.name=axontracer
 aws.input=input
 aws.output=output
@@ -55,7 +55,7 @@ upload-app-aws:
 # Main EMR launch.
 cloud:jar upload-app-aws delete-output-aws
 	aws emr create-cluster \
-		--name "Brain Scan Image Prediction" \
+		--name "Brain Scan Image Prediction Transformed 5100" \
 		--release-label ${aws.release.label} \
 		--instance-groups '[{"InstanceCount":${aws.num.nodes},"InstanceGroupType":"CORE","InstanceType":"${aws.instance.type}"},{"InstanceCount":1,"InstanceGroupType":"MASTER","InstanceType":"${aws.instance.type}"}]' \
 	    --applications Name=Hadoop Name=Spark \
