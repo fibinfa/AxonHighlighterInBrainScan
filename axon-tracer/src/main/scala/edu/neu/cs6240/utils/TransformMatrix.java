@@ -27,13 +27,13 @@ public class TransformMatrix {
 
 
 	private static int[] rotateArray90(int ar[]) {
-		int result[] = new int[9];
+		int result[] = new int[441];
 		int c = 0;
 		for (int i = 0; i < ar.length; i++) {
-			if (i!=0 && i%3 == 0) {
+			if (i!=0 && i%21 == 0) {
 				c++;	
 			}
-			int newIndex = 3 * (i-3*c) + (3-c-1);
+			int newIndex = 21 * (i-21*c) + (21-c-1);
 			result[newIndex]= ar[i];
 			
 		}
@@ -42,7 +42,7 @@ public class TransformMatrix {
 	
 	
 	private static int[] rotateArray180(int ar[]) {
-		int result[] = new int[9];
+		int result[] = new int[441];
 
 
 		ArrayUtils.reverse(ar);
@@ -54,28 +54,23 @@ public class TransformMatrix {
 		}
 	
 	private static int[] rotateArray270(int ar[]) {
-		int result[] = new int[9];
+		int result[] = new int[441];
 
 
 		int c = 0;
 		for (int i = 0; i < ar.length; i++) {
-			if (i!=0 && i%3==0) {
+			if (i!=0 && i%21 == 0) {
 				c++;	
 			}
-			int newIndex = 9 - 3*(i-3*c+1) +c;
+			int newIndex = 441 - 21*(i-21*c+1) + c;
 			result[newIndex]= ar[i];
 			
-			
 		}
-
-
 
 		return result;
 	}
 	
 	
-	
-
 	public static List<String[]> transform(String ar[]) {
 
 		String[] result = new String[RECORD_SIZE];

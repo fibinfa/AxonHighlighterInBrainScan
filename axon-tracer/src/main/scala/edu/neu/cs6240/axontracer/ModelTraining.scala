@@ -44,7 +44,7 @@ object ModelTraining {
         Vectors.dense(arr.take(arr.length - 1).
           map(str => str.toDouble)))
       //90 rotated
-      listBuffer += new LabeledPoint(
+     /* listBuffer += new LabeledPoint(
         arr.last.toDouble,
         Vectors.dense(rotate90(arr).
           map(str => str.toDouble)))
@@ -59,7 +59,7 @@ object ModelTraining {
       listBuffer += new LabeledPoint(
         arr.last.toDouble,
         Vectors.dense(rotate270(arr).
-          map(str => str.toDouble)))
+          map(str => str.toDouble)))*/
       
       listBuffer.map(x => x)
       
@@ -67,10 +67,10 @@ object ModelTraining {
 
     val numClasses = 2
     val categoricalFeaturesInfo = Map[Int, Int]()
-    val numTrees = 100
+    val numTrees = 50
     val featureSubsetStrategy = "auto" // Let the algorithm choose.
     val impurity = "gini" // for classification
-    val maxDepth = 5
+    val maxDepth = 20
     val maxBins = 100
 
     //model is created and stored as an rdd

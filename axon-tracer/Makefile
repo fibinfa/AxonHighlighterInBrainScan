@@ -13,13 +13,13 @@ local.input=input
 local.output=output
 # AWS EMR Execution
 aws.release.label=emr-5.9.0
-aws.bucket.name=axontracer
+aws.bucket.name=mapr-asim-csv
 aws.input=input
 aws.output=output
 aws.log.dir=log
 aws.num.nodes=10
 aws.instance.type=m4.large
-aws.subnet.id=subnet-7a20c41e
+aws.subnet.id=subnet-e126d8ee
 aws.region=us-east-1
 # -----------------------------------------------------------
 
