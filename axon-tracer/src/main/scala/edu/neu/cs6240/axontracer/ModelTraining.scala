@@ -37,38 +37,6 @@ object ModelTraining {
     //parsing the input file and converting to labelled point where
     //label is the flag and vector is the neighborhood
     val trainingData = sc.textFile(args(0) + "/Training/*.csv")
-<<<<<<< HEAD
-    .map(row => row.split(","))
-    .flatMap(arr => {
-      var listBuffer = new ListBuffer[LabeledPoint]
-      //original
-      listBuffer+= new LabeledPoint(
-        arr.last.toDouble,
-        Vectors.dense(arr.take(arr.length - 1).
-          map(str => str.toDouble)))
-      //90 rotated
-     /* listBuffer += new LabeledPoint(
-        arr.last.toDouble,
-        Vectors.dense(rotate90(arr).
-          map(str => str.toDouble)))
-      
-      //180 rotated
-      listBuffer += new LabeledPoint(
-        arr.last.toDouble,
-        Vectors.dense(rotate180(arr).
-          map(str => str.toDouble)))
-      
-      //270 rotated
-      listBuffer += new LabeledPoint(
-        arr.last.toDouble,
-        Vectors.dense(rotate270(arr).
-          map(str => str.toDouble)))*/
-      
-      listBuffer.map(x => x)
-      
-    })
-
-=======
       .map(row => row.split(","))
       .flatMap(arr => {
         var listBuffer = new ListBuffer[LabeledPoint]
@@ -102,17 +70,12 @@ object ModelTraining {
 
     //parameter tuning
     // change each of these values to tune the accuracy
->>>>>>> d6657b7dc03018898bd4643ac3b86b11c91b355f
     val numClasses = 2
     val categoricalFeaturesInfo = Map[Int, Int]()
     val numTrees = 50
     val featureSubsetStrategy = "auto" // Let the algorithm choose.
     val impurity = "gini" // for classification
-<<<<<<< HEAD
-    val maxDepth = 20
-=======
     val maxDepth = 10
->>>>>>> d6657b7dc03018898bd4643ac3b86b11c91b355f
     val maxBins = 100
 
     //model is created and stored as an rdd
