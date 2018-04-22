@@ -24,7 +24,8 @@ Steps to run
    7. Check the accuracy in console
    8. Tune the parameters and run the program again until you get the desired accuracy
    9. Once desired accuracy is achieved and you fixed the model, run AxonPixelPrediction.scala
-   10. Output will be generated in the output folder	
+   10. Give the input parameter as input folder and output folder location
+   11. Output will be generated in the output folder	
 
 NOTE: Transformation code is written for 90,180 and 270 rotation of neighboring vector, you just
 need to uncomment that piece

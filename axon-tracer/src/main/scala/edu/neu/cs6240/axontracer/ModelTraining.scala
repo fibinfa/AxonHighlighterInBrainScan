@@ -82,6 +82,8 @@ object ModelTraining {
     val trainingModel = RandomForest.trainClassifier(trainingData, numClasses,
       categoricalFeaturesInfo,
       numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)
+      
+      trainingModel.save(sc, args(0)+"/Model")
 
     // training is done
 
